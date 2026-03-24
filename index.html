@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acoso Escolar — La Salle San Rafael</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #003087;
+    --azul-claro: #004fc4;
+    --dorado: #c9a84c;
+    --dorado-suave: #f5e6b8;
+    --rojo: #b71c1c;
+    --verde: #1b5e20;
+    --morado: #4a148c;
+    --gris-fondo: #f7f5f0;
+    --gris-texto: #2c2a26;
+    --blanco: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--gris-fondo);
+    color: var(--gris-texto);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 540px; height: 540px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Ccircle cx='200' cy='200' r='190' fill='none' stroke='%23003087' stroke-width='3'/%3E%3Ccircle cx='200' cy='200' r='178' fill='none' stroke='%23003087' stroke-width='1'/%3E%3Ctext x='200' y='148' text-anchor='middle' font-family='Georgia,serif' font-size='40' font-weight='700' fill='%23003087' letter-spacing='2'%3ELA SALLE%3C/text%3E%3Ctext x='200' y='197' text-anchor='middle' font-family='Georgia,serif' font-size='18' fill='%23c9a84c' letter-spacing='5'%3EEDUCACI%C3%93N%3C/text%3E%3Crect x='95' y='210' width='210' height='2' fill='%23c9a84c'/%3E%3Crect x='95' y='164' width='210' height='2' fill='%23c9a84c'/%3E%3Ctext x='200' y='248' text-anchor='middle' font-family='Georgia,serif' font-size='34' font-weight='700' fill='%23003087' letter-spacing='1'%3ESAN RAFAEL%3C/text%3E%3Ctext x='200' y='278' text-anchor='middle' font-family='Georgia,serif' font-size='13' fill='%23003087' letter-spacing='3'%3EESPAN%CC%83A%3C/text%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0.055;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero {
+    background: var(--azul);
+    color: var(--blanco);
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 550px; height: 550px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 68%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--dorado), #e8c96a, var(--dorado));
+  }
+
+  .header-band {
+    background: rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(201,168,76,0.25);
+    padding: 14px 60px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .escudo {
+    width: 46px; height: 46px;
+    background: var(--dorado);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 900;
+    color: var(--azul);
+    flex-shrink: 0;
+  }
+
+  .school-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .school-name strong {
+    display: block;
+    font-size: 16px;
+    color: var(--dorado);
+    letter-spacing: 0.3px;
+    text-transform: none;
+  }
+
+  .hero-content {
+    padding: 56px 60px 80px;
+    max-width: 880px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.18);
+    border: 1px solid rgba(201,168,76,0.45);
+    color: var(--dorado);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5.5vw, 68px);
+    font-weight: 900;
+    line-height: 1.06;
+    margin-bottom: 22px;
+    color: var(--blanco);
+  }
+
+  h1 em { color: var(--dorado); font-style: italic; }
+
+  .hero-sub {
+    font-size: 17px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.75);
+    max-width: 580px;
+    font-weight: 300;
+  }
+
+  .stats-bar {
+    background: var(--dorado);
+    padding: 26px 60px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 6px 16px;
+    border-right: 1px solid rgba(0,48,135,0.18);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px; font-weight: 900;
+    color: var(--azul); line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; color: #4a3800;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    margin-top: 5px; line-height: 1.4;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 72px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700;
+    color: var(--azul); margin-bottom: 8px;
+    position: relative; padding-bottom: 16px;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 56px; height: 3px;
+    background: var(--dorado);
+  }
+
+  .section-intro {
+    font-size: 16.5px; color: #555;
+    margin-bottom: 44px; line-height: 1.72;
+    font-weight: 300; max-width: 680px;
+  }
+
+  .fuente-nota {
+    background: #e8f0fe;
+    border: 1px solid #b8cdf8;
+    border-left: 4px solid var(--azul-claro);
+    padding: 18px 24px; margin-bottom: 44px;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; color: #1a3a8a; line-height: 1.65;
+  }
+
+  .definition-block {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 48px 52px; border-radius: 3px;
+    margin-bottom: 68px;
+    position: relative; overflow: hidden;
+  }
+
+  .definition-block::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: 28px;
+    font-family: 'Playfair Display', serif;
+    font-size: 200px;
+    color: rgba(201,168,76,0.1);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .definition-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px; color: var(--dorado);
+    margin-bottom: 14px; font-weight: 700;
+  }
+
+  .definition-block p {
+    font-size: 17.5px; line-height: 1.82;
+    color: rgba(255,255,255,0.88);
+    font-weight: 300; position: relative; z-index: 1;
+  }
+
+  .fuente-tag {
+    display: inline-block; margin-top: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; color: rgba(255,255,255,0.45);
+  }
+
+  .tipos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px; margin-bottom: 68px;
+  }
+
+  .tipo-card {
+    background: var(--blanco);
+    border: 1px solid #e0ddd6;
+    border-top: 4px solid var(--azul);
+    padding: 30px 26px; border-radius: 2px;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+  .tipo-card:hover {
+    box-shadow: 0 10px 36px rgba(0,0,0,0.09);
+    transform: translateY(-4px);
+  }
+
+  .tipo-card.fisico { border-top-color: #b71c1c; }
+  .tipo-card.verbal { border-top-color: #e65100; }
+  .tipo-card.social { border-top-color: #1565c0; }
+  .tipo-card.cyber  { border-top-color: #4a148c; }
+  .tipo-card.sexual { border-top-color: #880e4f; }
+  .tipo-card.psico  { border-top-color: #2e7d32; }
+
+  .tipo-icono { font-size: 28px; margin-bottom: 14px; display: block; }
+
+  .tipo-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; font-weight: 700;
+    color: var(--azul); margin-bottom: 10px;
+  }
+
+  .tipo-card p {
+    font-size: 14px; line-height: 1.72;
+    color: #555; font-weight: 300;
+  }
+
+  .stat-cards {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 22px; margin-bottom: 30px;
+  }
+
+  .stat-card-big {
+    background: var(--blanco);
+    border: 1px solid #e0ddd6;
+    padding: 32px; border-radius: 2px;
+    display: flex; align-items: flex-start; gap: 18px;
+  }
+
+  .stat-circle {
+    width: 70px; height: 70px;
+    background: var(--azul); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 900;
+    color: var(--dorado);
+    text-align: center; line-height: 1.1;
+  }
+
+  .stat-card-big h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--azul); margin-bottom: 8px;
+  }
+
+  .stat-card-big p {
+    font-size: 13.5px; line-height: 1.65;
+    color: #666; font-weight: 300;
+  }
+
+  .fuente-mini {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; color: #aaa;
+    margin-top: 8px; display: block;
+  }
+
+  .data-bar-section {
+    background: var(--blanco);
+    border: 1px solid #e0ddd6;
+    padding: 38px; border-radius: 2px;
+    margin-bottom: 68px;
+  }
+
+  .data-bar-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px; color: var(--azul); margin-bottom: 26px;
+  }
+
+  .bar-item { margin-bottom: 18px; }
+
+  .bar-label {
+    display: flex; justify-content: space-between;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; color: #444; margin-bottom: 5px;
+  }
+
+  .bar-label span:last-child { font-weight: 600; color: var(--azul); }
+
+  .bar-track {
+    background: #eee; height: 8px;
+    border-radius: 4px; overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%; background: var(--azul); border-radius: 4px;
+  }
+
+  .bar-fill.dorado { background: var(--dorado); }
+  .bar-fill.rojo   { background: var(--rojo); }
+  .bar-fill.verde  { background: var(--verde); }
+  .bar-fill.morado { background: var(--morado); }
+
+  .consec-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 22px; margin-bottom: 68px;
+  }
+
+  .consec-card {
+    background: var(--blanco);
+    border: 1px solid #e0ddd6;
+    padding: 30px; border-radius: 2px;
+  }
+
+  .consec-card h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--dorado); margin-bottom: 18px;
+    padding-bottom: 12px; border-bottom: 1px solid #eee;
+  }
+
+  .consec-list { list-style: none; }
+
+  .consec-list li {
+    font-size: 14px; line-height: 1.6; color: #555;
+    padding: 7px 0; border-bottom: 1px solid #f0ede8;
+    display: flex; align-items: flex-start; gap: 9px;
+    font-weight: 300;
+  }
+
+  .consec-list li:last-child { border-bottom: none; }
+
+  .consec-list li::before {
+    content: '▸'; color: var(--azul);
+    font-size: 11px; margin-top: 3px; flex-shrink: 0;
+  }
+
+  .senales-section {
+    background: #fff9ed;
+    border: 1px solid #f0dfa0;
+    border-left: 5px solid var(--dorado);
+    padding: 38px 46px; margin-bottom: 68px; border-radius: 2px;
+  }
+
+  .senales-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 25px; color: #5a3e00; margin-bottom: 22px;
+  }
+
+  .senales-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+  }
+
+  .senales-cols h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: #7a5500; margin-bottom: 14px;
+  }
+
+  .senales-cols ul { list-style: none; }
+
+  .senales-cols ul li {
+    font-size: 14px; color: #5a3e00;
+    padding: 6px 0; border-bottom: 1px solid rgba(201,168,76,0.18);
+    display: flex; gap: 9px; font-weight: 300; line-height: 1.5;
+  }
+
+  .senales-cols ul li::before {
+    content: '◆'; font-size: 8px;
+    color: var(--dorado); margin-top: 4px; flex-shrink: 0;
+  }
+
+  .pasos {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--blanco); border: 1px solid #e0ddd6;
+    border-radius: 2px; overflow: hidden; margin-bottom: 68px;
+  }
+
+  .paso {
+    padding: 34px 26px; border-right: 1px solid #e0ddd6;
+  }
+
+  .paso:last-child { border-right: none; }
+
+  .paso-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px; font-weight: 900;
+    color: var(--dorado-suave); line-height: 1;
+    margin-bottom: -8px;
+  }
+
+  .paso h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--azul); text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 10px;
+  }
+
+  .paso p {
+    font-size: 13px; line-height: 1.65;
+    color: #666; font-weight: 300;
+  }
+
+  .legal-section {
+    background: var(--azul); color: var(--blanco);
+    padding: 52px; margin-bottom: 68px; border-radius: 3px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 44px;
+  }
+
+  .legal-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 27px; color: var(--dorado);
+    margin-bottom: 18px; grid-column: 1 / -1;
+  }
+
+  .legal-item {
+    padding: 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 2px;
+  }
+
+  .legal-item h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--dorado); margin-bottom: 10px;
+  }
+
+  .legal-item p {
+    font-size: 13.5px; line-height: 1.65;
+    color: rgba(255,255,255,0.78); font-weight: 300;
+  }
+
+  .recursos-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; margin-bottom: 68px;
+  }
+
+  .recurso-card {
+    border: 1px solid #e0ddd6; border-radius: 2px;
+    overflow: hidden; background: var(--blanco);
+    transition: box-shadow 0.3s;
+  }
+
+  .recurso-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.08); }
+
+  .recurso-header { background: var(--azul); padding: 15px 20px; }
+
+  .recurso-header h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600;
+    color: var(--dorado); text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  .recurso-body { padding: 20px; }
+
+  .recurso-body p {
+    font-size: 13.5px; line-height: 1.6;
+    color: #555; font-weight: 300; margin-bottom: 12px;
+  }
+
+  .recurso-contact {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px; font-weight: 600; color: var(--azul);
+  }
+
+  footer {
+    background: #0a1a40; color: rgba(255,255,255,0.55);
+    padding: 38px 60px; text-align: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; line-height: 1.9;
+  }
+
+  footer strong { color: var(--dorado); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section { animation: fadeUp 0.6s ease forwards; }
+
+  @media (max-width: 800px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .tipos-grid { grid-template-columns: 1fr; }
+    .stat-cards { grid-template-columns: 1fr; }
+    .consec-grid { grid-template-columns: 1fr; }
+    .senales-cols { grid-template-columns: 1fr; }
+    .pasos { grid-template-columns: 1fr 1fr; }
+    .legal-section { grid-template-columns: 1fr; padding: 32px; }
+    .recursos-grid { grid-template-columns: 1fr; }
+    .hero-content { padding: 36px 22px 56px; }
+    .header-band { padding: 12px 22px; }
+    main { padding: 44px 18px; }
+    .senales-section { padding: 28px 22px; }
+    .stats-bar { padding: 20px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="header-band">
+    <div class="escudo">LS</div>
+    <div class="school-name">
+      <strong>La Salle San Rafael</strong>
+      Formando personas íntegras con valores lasallistas · España
+    </div>
+  </div>
+  <div class="hero-content">
+    <span class="badge">Campaña de Prevención — Datos INE España</span>
+    <h1>El <em>Acoso Escolar</em><br>no es inevitable.</h1>
+    <p class="hero-sub">Información basada en datos oficiales del Instituto Nacional de Estadística de España (INE), el Ministerio de Educación, la Fundación ANAR y el Observatorio Estatal de la Convivencia Escolar. Conocer el problema es el primer paso para combatirlo.</p>
+  </div>
+</header>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">9,53%</div>
+    <div class="stat-label">Del alumnado de Primaria sufre acoso escolar (Min. Educación España, 2023)</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">69.554</div>
+    <div class="stat-label">Casos graves de bullying registrados en España en el período 2022–2023</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">9,2%</div>
+    <div class="stat-label">Del alumnado de Primaria sufrió ciberacoso en España (Min. Educación, 2023)</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">+49,8%</div>
+    <div class="stat-label">Aumento de consultas por acoso escolar en la línea ANAR de 2022 a 2023</div>
+  </div>
+</div>
+
+<main>
+
+  <div class="fuente-nota">
+    <strong>Fuentes oficiales:</strong> Todos los datos de esta página provienen del Instituto Nacional de Estadística de España (INE), el Ministerio de Educación, Formación Profesional y Deportes (Observatorio Estatal de la Convivencia Escolar 2023), la Fundación ANAR (Informe Anual 2023 y Estudio de Conducta Suicida en España 2012–2022), el estudio Health Behaviour in School-aged Children (HBSC) para España, Save The Children España y la Fundación ColaCao / UCM.
+  </div>
+
+  <div class="definition-block">
+    <h2>¿Qué es el acoso escolar?</h2>
+    <p>El acoso escolar o <em>bullying</em> es todo comportamiento agresivo —físico, verbal, psicológico, social, sexual o digital— que se ejerce de forma <strong>repetida e intencional</strong> por uno o varios individuos sobre otro, en un contexto de <strong>desequilibrio de poder</strong>, dentro del entorno educativo. No es una "cosa de niños": es violencia, y sus consecuencias pueden durar toda la vida.</p>
+    <span class="fuente-tag">Definición adoptada por el Ministerio de Educación de España y la OMS</span>
+  </div>
+
+  <section>
+    <h2 class="section-title">Tipos de acoso escolar</h2>
+    <p class="section-intro">El bullying adopta distintas formas. Según el I Estudio sobre Acoso Escolar y Ciberacoso en España (UCM / Fundación ColaCao, con 20.662 estudiantes de 325 centros educativos españoles), los insultos y burlas son la forma más frecuente, seguidas del aislamiento social.</p>
+
+    <div class="tipos-grid">
+      <div class="tipo-card fisico">
+        <span class="tipo-icono">⚠</span>
+        <h3>Acoso Físico</h3>
+        <p>Golpes, empujones, patadas, zancadillas o daño a objetos personales. El estudio UCM/ColaCao registra que los <strong>golpes y patadas</strong> afectan al 22,2% de las víctimas de acoso en España, con mayor prevalencia en Educación Primaria que en Secundaria.</p>
+      </div>
+      <div class="tipo-card verbal">
+        <span class="tipo-icono">🗣</span>
+        <h3>Acoso Verbal</h3>
+        <p>Insultos, motes hirientes, burlas y humillaciones en público. Es la forma <strong>más extendida en España</strong>: el 87,6% del alumnado que sufre acoso reporta insultos, motes y burlas como la principal forma de agresión (ANAR / UCM, 2023–2024).</p>
+      </div>
+      <div class="tipo-card social">
+        <span class="tipo-icono">👥</span>
+        <h3>Acoso Social / Exclusión</h3>
+        <p>Rechazo del grupo, ignorar a la víctima, extender rumores. El aislamiento afecta al <strong>42,6% de las víctimas</strong> en España. El acoso grupal es mayoritario (49,8% de los casos). La difusión de rumores aparece en el 26,8% de los casos (Fundación ANAR, 2023).</p>
+      </div>
+      <div class="tipo-card cyber">
+        <span class="tipo-icono">📱</span>
+        <h3>Ciberacoso</h3>
+        <p>Hostigamiento a través de dispositivos digitales. El <strong>9,2% del alumnado de Primaria</strong> lo ha sufrido (Min. Educación, 2023). Principales canales en España: WhatsApp (71,9%), Instagram (44,8%) y TikTok (41,7%). En un 20% de los casos ya se usa inteligencia artificial (ANAR, 2024).</p>
+      </div>
+      <div class="tipo-card sexual">
+        <span class="tipo-icono">🚫</span>
+        <h3>Acoso Sexual</h3>
+        <p>Comentarios, gestos o contacto sexual no consentido entre iguales. La Fundación ANAR documenta que las agresiones sexuales están presentes en el <strong>7,2%</strong> de los casos de conducta suicida asociada a violencia en el entorno escolar en España (Estudio 2012–2022).</p>
+      </div>
+      <div class="tipo-card psico">
+        <span class="tipo-icono">🧠</span>
+        <h3>Acoso Psicológico</h3>
+        <p>Intimidación, amenazas, manipulación y generación de miedo continuado. Las amenazas representan el <strong>20,9%</strong> de las formas de agresión y los problemas de conducta el 4,4% de las causas asociadas a conducta suicida en menores. El impacto psicológico persiste mucho después de que el acoso cesa.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Datos y cifras en España</h2>
+    <p class="section-intro">Estadísticas verificadas de organismos oficiales españoles que muestran la magnitud real del acoso escolar.</p>
+
+    <div class="stat-cards">
+      <div class="stat-card-big">
+        <div class="stat-circle">9,4%</div>
+        <div>
+          <h4>Del alumnado es víctima de acoso y/o ciberbullying</h4>
+          <p>Según el VI Informe de Prevención del Acoso Escolar de la Fundación ANAR (2024): el 6,5% sufre solo acoso presencial, el 1,1% solo ciberacoso y el 1,8% padece ambos simultáneamente. El 47,3% de las víctimas lo soporta durante meses y el 26,6% durante más de un año.</p>
+          <span class="fuente-mini">Fundación ANAR, VI Informe de Prevención del Acoso Escolar, 2024</span>
+        </div>
+      </div>
+      <div class="stat-card-big">
+        <div class="stat-circle">38%</div>
+        <div>
+          <h4>De las víctimas no se lo cuenta a nadie</h4>
+          <p>El 38% de los menores que sufren acoso en España no lo comunica a ningún adulto. Los motivos principales son el miedo y no preocupar a sus familias. Entre quienes sí piden ayuda, acuden a la madre (77,6%), a amistades (72,7%), al padre (63%) y al profesorado (52,4%).</p>
+          <span class="fuente-mini">I Estudio Acoso Escolar y Ciberacoso en España, UCM / Fundación ColaCao</span>
+        </div>
+      </div>
+      <div class="stat-card-big">
+        <div class="stat-circle">21,4%</div>
+        <div>
+          <h4>De los intentos de suicidio de menores están vinculados al acoso escolar</h4>
+          <p>Según el Estudio sobre Conducta Suicida y Salud Mental en la Infancia y Adolescencia en España 2012–2022 (Fundación ANAR), el acoso escolar y el ciberbullying son la principal causa de violencia asociada a conducta suicida entre los menores de edad en España. El INE documentó 22 suicidios de menores de 14 años en 2021, cifra que se duplicó en 2022.</p>
+          <span class="fuente-mini">Fundación ANAR — Estudio Conducta Suicida 2012–2022 · INE Estadísticas de Defunciones 2021–2022</span>
+        </div>
+      </div>
+      <div class="stat-card-big">
+        <div class="stat-circle">57,8%</div>
+        <div>
+          <h4>Del acoso ocurre en el patio del colegio</h4>
+          <p>El patio es el lugar más frecuente del acoso en España (57,8% de los casos), siendo más alto en Primaria (69,6%) que en Secundaria (48,8%). El aula es el segundo escenario (34,3%), seguido del baño, el comedor y el transporte escolar.</p>
+          <span class="fuente-mini">Fundación Gizagune / I Estudio UCM, datos 2023</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-bar-section">
+      <h3>Formas de agresión más frecuentes entre víctimas de bullying en España</h3>
+
+      <div class="bar-item">
+        <div class="bar-label"><span>Insultos, motes y burlas</span><span>87,6%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:87.6%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Aislamiento y exclusión social</span><span>42,6%</span></div>
+        <div class="bar-track"><div class="bar-fill dorado" style="width:42.6%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Difusión de rumores</span><span>26,8%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:26.8%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Golpes y patadas</span><span>22,2%</span></div>
+        <div class="bar-track"><div class="bar-fill rojo" style="width:22.2%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Amenazas</span><span>20,9%</span></div>
+        <div class="bar-track"><div class="bar-fill rojo" style="width:20.9%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Robo o rotura de objetos personales</span><span>11,4%</span></div>
+        <div class="bar-track"><div class="bar-fill verde" style="width:11.4%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Ciberacoso vía WhatsApp (principal canal)</span><span>71,9%</span></div>
+        <div class="bar-track"><div class="bar-fill morado" style="width:71.9%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Ciberacoso vía Instagram</span><span>44,8%</span></div>
+        <div class="bar-track"><div class="bar-fill morado" style="width:44.8%"></div></div>
+      </div>
+      <div class="bar-item">
+        <div class="bar-label"><span>Ciberacoso vía TikTok</span><span>41,7%</span></div>
+        <div class="bar-track"><div class="bar-fill morado" style="width:41.7%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Consecuencias del acoso escolar</h2>
+    <p class="section-intro">Las secuelas del bullying son profundas y duraderas. Según Save The Children España, los menores víctimas de acoso tienen <strong>2,23 veces más riesgo de sufrir ideaciones suicidas</strong> y 2,55 veces más probabilidad de intentar el suicidio. Los casos de autolesiones registrados por ANAR se multiplicaron por 6,91 en cinco años (+592%).</p>
+
+    <div class="consec-grid">
+      <div class="consec-card">
+        <h3>En la víctima</h3>
+        <ul class="consec-list">
+          <li>Ansiedad, depresión y baja autoestima</li>
+          <li>Bajo rendimiento escolar y absentismo</li>
+          <li>Trastornos del sueño y alimentación</li>
+          <li>Aislamiento social y pérdida de amistades</li>
+          <li>Riesgo 2,23× mayor de ideación suicida (Save The Children España)</li>
+          <li>Rechazo al colegio; miedo a asistir</li>
+          <li>Estrés postraumático en casos graves</li>
+          <li>Autolesiones: aumento del 592% en 5 años (ANAR España)</li>
+        </ul>
+      </div>
+      <div class="consec-card">
+        <h3>En el agresor</h3>
+        <ul class="consec-list">
+          <li>Normalización de conductas violentas</li>
+          <li>Mayor riesgo de conducta antisocial en la adultez</li>
+          <li>Dificultades en relaciones interpersonales</li>
+          <li>Problemas con figuras de autoridad</li>
+          <li>Los perpetradores de ciberbullying también presentan mayor riesgo de ideación suicida</li>
+          <li>Riesgo de involucramiento en conductas delictivas</li>
+        </ul>
+      </div>
+      <div class="consec-card">
+        <h3>En los testigos</h3>
+        <ul class="consec-list">
+          <li>Ansiedad y sentimientos de culpa</li>
+          <li>Miedo a convertirse en la próxima víctima</li>
+          <li>Desensibilización ante la violencia</li>
+          <li>Deterioro del clima escolar</li>
+          <li>Solo el 30,91% comunica la situación a un profesor (Min. Educación España, 2023)</li>
+        </ul>
+      </div>
+      <div class="consec-card">
+        <h3>En la comunidad escolar</h3>
+        <ul class="consec-list">
+          <li>Deterioro del ambiente de aprendizaje</li>
+          <li>Desconfianza en las instituciones educativas</li>
+          <li>Solo el 55,1% de los equipos directivos cuenta con programas de mediación escolar</li>
+          <li>El Ministerio de Educación señala la formación docente en detección como déficit prioritario</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="senales-section">
+      <h2>¿Cómo identificarlo?</h2>
+      <div class="senales-cols">
+        <div>
+          <h4>Señales en la posible víctima</h4>
+          <ul>
+            <li>Cambios repentinos de humor o conducta</li>
+            <li>Rechazo a asistir al colegio o simular enfermedades</li>
+            <li>Objetos perdidos o dañados de forma repetida</li>
+            <li>Heridas o moretones sin explicación clara</li>
+            <li>Pesadillas frecuentes o dificultad para dormir</li>
+            <li>Pérdida del apetito o cambios en la alimentación</li>
+            <li>Se aísla de amigos, familia y actividades</li>
+            <li>Caída brusca en calificaciones o rendimiento</li>
+            <li>Expresa sentirse solo, inútil o sin ganas de seguir</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Señales en el posible agresor</h4>
+          <ul>
+            <li>Necesita sentir superioridad o control sobre otros</li>
+            <li>Dificultad para ponerse en el lugar de los demás</li>
+            <li>Se junta con otros que también acosan</li>
+            <li>Culpa siempre a los demás de sus problemas</li>
+            <li>Lleva objetos ajenos o dinero sin explicación</li>
+            <li>Habla de forma despectiva de algún compañero</li>
+            <li>Muestra conductas agresivas también en casa</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">¿Qué hacer ante un caso de bullying?</h2>
+    <p class="section-intro">La intervención rápida es fundamental. Estos pasos siguen las directrices del Protocolo de Actuación del Ministerio de Educación de España y del Observatorio Estatal de la Convivencia Escolar.</p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-num">01</div>
+        <h3>Escuchar y creer</h3>
+        <p>Crea un espacio seguro para que la víctima hable. No minimices su experiencia ni la culpes. El 38% de las víctimas en España no se lo cuenta a nadie: que confíe en ti es decisivo. Valida su vivencia sin juzgar.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-num">02</div>
+        <h3>Documentar y reportar</h3>
+        <p>Registra fechas, lugares, personas implicadas y hechos concretos. Comunícalo de inmediato al tutor, orientador o dirección del centro. Los centros escolares en España tienen obligación legal de activar su protocolo al recibir una denuncia de bullying.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-num">03</div>
+        <h3>Apoyo profesional</h3>
+        <p>El orientador escolar o un psicólogo externo puede acompañar a la víctima. No esperes que "se resuelva solo": el 68,4% de los problemas atendidos por ANAR llevan más de un año sin resolverse cuando el menor pide ayuda por primera vez.</p>
+      </div>
+      <div class="paso">
+        <div class="paso-num">04</div>
+        <h3>Seguimiento activo</h3>
+        <p>Verifica que las medidas sean efectivas. Si el acoso continúa, escala: Inspección Educativa de la CCAA, Fiscalía de Menores, Policía Nacional (Plan Director) o el Defensor del Menor de tu comunidad autónoma.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="legal-section">
+      <h2>Marco Normativo en España</h2>
+      <div class="legal-item">
+        <h4>Ley Orgánica de Educación — LOMLOE (2020)</h4>
+        <p>Obliga a los centros educativos a elaborar y aplicar protocolos de actuación ante el acoso escolar y a garantizar entornos seguros. Los equipos directivos tienen responsabilidad directa en su cumplimiento efectivo.</p>
+      </div>
+      <div class="legal-item">
+        <h4>Ley de Protección de la Infancia — LOPIVI (2021)</h4>
+        <p>Refuerza la obligación de todos los ciudadanos de comunicar situaciones de riesgo para menores. Establece la figura del Responsable de Bienestar y Protección del Alumnado en todos los centros educativos de España.</p>
+      </div>
+      <div class="legal-item">
+        <h4>Código Penal — Aplicación en acoso escolar</h4>
+        <p>Cuando el bullying conlleva lesiones, amenazas, coacciones o acoso sexual puede ser constitutivo de delito. Los menores de 14 a 18 años se rigen por la LORPM. Las familias tienen derecho a presentar denuncia ante la Policía Nacional o la Fiscalía de Menores.</p>
+      </div>
+      <div class="legal-item">
+        <h4>Plan Nacional de Prevención del Suicidio 2025–2027</h4>
+        <p>Aprobado en febrero de 2025, incluye medidas específicas en el ámbito educativo. Complementa el Teléfono 024 (más de 260.000 llamadas desde 2022, según el Ministerio de Sanidad y el INE), con especial atención a menores en situación de riesgo por acoso.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">Dónde pedir ayuda en España</h2>
+    <p class="section-intro">Si eres víctima de acoso o conoces a alguien que lo sufre, estos recursos oficiales y especializados están disponibles en todo el territorio español.</p>
+
+    <div class="recursos-grid">
+      <div class="recurso-card">
+        <div class="recurso-header">
+          <h3>Teléfono ANAR — Ayuda a Niños y Adolescentes</h3>
+        </div>
+        <div class="recurso-body">
+          <p>Línea gratuita y confidencial de ayuda a menores y familias ante acoso, conducta suicida y crisis emocional. Disponible las 24 horas, 365 días al año. En 2023 atendió 256.263 peticiones de ayuda, el mayor número de su historia.</p>
+          <div class="recurso-contact">900 20 20 10</div>
+        </div>
+      </div>
+      <div class="recurso-card">
+        <div class="recurso-header">
+          <h3>Teléfono 024 — Atención a conducta suicida</h3>
+        </div>
+        <div class="recurso-body">
+          <p>Línea del Ministerio de Sanidad de España activa desde mayo de 2022. Atiende a menores y adultos en situación de crisis. Más de 260.000 llamadas recibidas en sus primeros dos años, con cerca de 13.000 derivaciones al 112 (datos INE y Ministerio de Sanidad).</p>
+          <div class="recurso-contact">024</div>
+        </div>
+      </div>
+      <div class="recurso-card">
+        <div class="recurso-header">
+          <h3>Policía Nacional — Plan Director Escolar</h3>
+        </div>
+        <div class="recurso-body">
+          <p>La Policía Nacional cuenta con más de 500 expertos en el Plan Director para la Convivencia Escolar, que realizaron más de 25.000 formaciones en colegios de toda España en el último año. Ante un delito, acude a tu comisaría más cercana.</p>
+          <div class="recurso-contact">091 / 112</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="definition-block">
+      <h2>El compromiso de La Salle San Rafael</h2>
+      <p>En nuestra institución, el respeto, la fraternidad y la dignidad de cada persona son pilares del carisma lasallista. Nos comprometemos a mantener una comunidad educativa libre de violencia, en plena concordancia con la normativa educativa española vigente (LOMLOE y LOPIVI), donde cada alumno y alumna pueda crecer en un entorno de paz, seguridad y respeto mutuo.</p>
+      <br>
+      <p style="font-size:16px;">Si eres estudiante, docente o familia y tienes conocimiento de una situación de acoso en nuestra institución, <strong style="color:var(--dorado);">acércate con confianza al orientador escolar, a tu tutor o a la dirección del centro.</strong> Tu bienestar es nuestra prioridad.</p>
+      <span class="fuente-tag">La Salle San Rafael · España</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <strong>La Salle San Rafael — España</strong><br>
+  Página elaborada con fines educativos y de prevención del acoso escolar<br>
+  <br>
+  Fuentes: INE (Instituto Nacional de Estadística de España) · Ministerio de Educación, FP y Deportes (Observatorio Estatal de la Convivencia Escolar, 2023) · Fundación ANAR (Informe Anual 2023–2024 · Estudio Conducta Suicida 2012–2022) · Save The Children España · UCM / Fundación ColaCao · HBSC España · Policía Nacional · Ministerio de Sanidad<br>
+  <br>
+  <span style="opacity:0.38; font-size:11px;">© 2025 La Salle San Rafael · Todos los derechos reservados</span>
+</footer>
+
+</body>
+</html>
